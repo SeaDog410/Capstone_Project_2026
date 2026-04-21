@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Database
+*.sqlite
+*.db
+*.sql
+
+# Node / React Native
+node_modules/
+.expo/
+dist/
+
+# IDEs and Editors
+.vscode/
+.idea/
+.DS_Store
+
+# Mobile specific
+ios/build/
+android/build/
+*.ipa
+*.apk
