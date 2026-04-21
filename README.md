@@ -4,14 +4,14 @@
 
 ---
 
-## 🔗 Quick Links
+##  Quick Links
 - **Local API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs) *(FastAPI Swagger UI)*
 - **Manage Tasks:** [Project Workspace Board](https://github.com/users/YOUR_USER/projects/1)
 - **Design Assets:** [Figma Design File](https://figma.com/...)
 
 ---
 
-## 📈 Project Status
+##  Project Status
 
 The project is moving from architectural design to active development.
 
@@ -23,7 +23,7 @@ The project is moving from architectural design to active development.
 
 ---
 
-## 🛡️ Key Features
+##  Key Features
 
 1.  **Offline-First Documentation:** Mobile-friendly system using a local database (SQLite) that auto-syncs to the cloud, ensuring data is never lost on the field.
 2.  **Voice-to-Note (SOAP):** Integration with medical-grade Speech-to-Text APIs to generate structured injury notes hands-free.
@@ -32,7 +32,7 @@ The project is moving from architectural design to active development.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 * **Language:** Python (FastAPI), JavaScript (React Native)
 * **Database:** PostgreSQL (Cloud), SQLite (Local Sync)
@@ -41,7 +41,7 @@ The project is moving from architectural design to active development.
 
 ---
 
-## 📡 Application Flow & UI Roles
+##  Application Flow & UI Roles
 
 1.  **Trainer Interface** (`Trainer_UI`)
     * Full access to medical records, SOAP notes, analytics, and inventory.
@@ -54,7 +54,7 @@ The project is moving from architectural design to active development.
 
 ---
 
-## 🧩 Database Structure Summary
+##  Database Structure Summary
 
 The system utilizes a relational schema optimized for speed and medical compliance.
 
@@ -65,3 +65,26 @@ ATHLETES (AthleteID [PK], TeamID, MedicalHistory, ClearanceStatus)
 ENCOUNTERS (NoteID [PK], AthleteID [FK], TrainerID [FK], S/O/A/P_Fields)
 REHAB_PROGRAMS (ProgramID [PK], AthleteID [FK], ExerciseDetails, CompletionStatus)
 INVENTORY (ItemID [PK], ItemName, Quantity, Threshold)
+
+ User Stories
+User Story 1: The Trainer
+As a Trainer, I want to record SOAP notes via voice on the sideline, so that I can focus on athlete care without manual typing.
+
+Status: In Progress
+
+User Story 2: The Athlete
+As an Athlete, I want a gamified home exercise program, so that I can track my recovery progress and return to play faster.
+
+Status: Pending
+
+User Story 3: The Coach
+As a Coach, I want a simplified clearance dashboard, so that I can see who is healthy to practice without accessing private medical details.
+
+Status: Pending
+
+ Future Improvements
+Predictive Analytics: Using machine learning to predict injury risks based on training load.
+
+Apple Health/Google Fit Integration: Syncing biometric data for a 360-degree view of athlete health.
+
+Direct Telehealth: Secure video conferencing for remote injury consultations.
