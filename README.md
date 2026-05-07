@@ -1,90 +1,95 @@
 # The Nest — Athletic Training Documentation & Management System
 
-**The Nest** is a comprehensive application designed for college and high school athletic trainers (ATs) to reduce administrative burden, ensure legal documentation compliance, and improve athlete recovery outcomes. This repository connects a cross-platform mobile frontend (React Native) to a high-performance backend (FastAPI/PostgreSQL).
+**The Nest** is a web application for college and high school athletic trainers to reduce administrative burden, ensure documentation compliance, and improve athlete recovery outcomes. Trainers can log SOAP notes, manage rosters and clearance, build rehab programs, and track inventory — all from a browser.
 
 ---
 
-##  Quick Links
-- **Local API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs) *(FastAPI Swagger UI)*
-- **Manage Tasks:** [Project Workspace Board](https://github.com/users/YOUR_USER/projects/1)
-- **Design Assets:** [Figma Design File](https://figma.com/...)
+## Quick Links
+
+- **GitHub Wiki:** [SeaDog410/Capstone\_Project\_2026/wiki](https://github.com/SeaDog410/Capstone_Project_2026/wiki)
+- **Project Board:** [GitHub Projects](https://github.com/users/SeaDog410/projects/1)
+- **Demo Video:** *(coming soon)*
 
 ---
 
-##  Project Status
+## Getting Started
 
-The project is moving from architectural design to active development.
+**Prerequisites:** Node.js 18 or later. No global installs required.
+
+```bash
+git clone https://github.com/SeaDog410/Capstone_Project_2026.git
+cd Capstone_Project_2026
+npm install
+npm start
+```
+
+Open **http://localhost:3000** in your browser.
+
+To explore the app, click **Sign Up**, fill in your name, email, password, and select **Trainer** as your role. All trainer features are available immediately after registering.
+
+> Detailed setup notes (environment variables, SQLite file location) live in the [wiki](https://github.com/SeaDog410/Capstone_Project_2026/wiki).
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+| :--- | :--- |
+| **Runtime** | Node.js 18+ |
+| **Backend** | Express.js |
+| **Database** | SQLite via node-sqlite3-wasm |
+| **Frontend** | Vanilla JavaScript, HTML, CSS |
+| **Auth** | jsonwebtoken, bcryptjs |
+| **AI / Voice** | OpenAI API |
+
+---
+
+## Project Status
 
 | Milestone | Status | Description |
 | :--- | :--- | :--- |
-| **Milestone 1: Database & Security** | **In Progress** | PostgreSQL Schema, RBAC Logic, and AES-256 Encryption setup. |
-| **Milestone 2: Trainer & Athlete UI** | **In Progress** | Mobile interface creation with Offline-First sync capabilities. |
-| **Milestone 3: Voice & Analytics** | **Pending** | Integration of AWS Transcribe Medical and D3.js Heatmaps. |
+| **1: Auth & User Management** | **Complete** | JWT login/register, role-based access (Trainer, Athlete, Coach) |
+| **2: Athlete Roster & Clearance** | **Complete** | Athlete profiles, Red/Yellow/Green clearance, coach read-only view |
+| **3: SOAP Notes & Voice** | **Complete** | Full SOAP note editor with OpenAI voice-to-text transcription |
+| **4: Rehab Programs & HEP** | **Complete** | Exercise library, program builder, athlete checklist |
+| **5: Inventory & QR Scanning** | **Complete** | Supply tracking, low-stock alerts, QR code generation/scanning |
 
 ---
 
-##  Key Features
+## Key Features
 
-1.  **Offline-First Documentation:** Mobile-friendly system using a local database (SQLite) that auto-syncs to the cloud, ensuring data is never lost on the field.
-2.  **Voice-to-Note (SOAP):** Integration with medical-grade Speech-to-Text APIs to generate structured injury notes hands-free.
-3.  **Role-Based Access Control (RBAC):** A single login renders different interfaces for Trainers, Athletes, and Coaches to maintain HIPAA/FERPA privacy.
-4.  **Injury Analytics:** Visual D3.js dashboards showing injury hotspots by body part, team, or specific practice drills.
-
----
-
-##  Tech Stack
-
-* **Language:** Python (FastAPI), JavaScript (React Native)
-* **Database:** PostgreSQL (Cloud), SQLite (Local Sync)
-* **Security:** AES-256 Encryption, TLS, and Detailed Audit Logging
-* **APIs:** AWS Transcribe Medical
+1. **SOAP Note Documentation:** Structured injury notes with optional OpenAI voice-to-text, keeping trainers hands-free on the sideline.
+2. **Role-Based Access Control:** A single login renders different interfaces for Trainers, Athletes, and Coaches to maintain HIPAA/FERPA privacy.
+3. **Rehab & HEP Tracking:** Build home exercise programs from a library and let athletes check off completed sessions.
+4. **Inventory Management:** Track consumables and loaned equipment with QR code scanning and automatic low-stock alerts.
 
 ---
 
-##  Application Flow & UI Roles
+## Application Flow & UI Roles
 
-1.  **Trainer Interface** (`Trainer_UI`)
-    * Full access to medical records, SOAP notes, analytics, and inventory.
-2.  **Athlete Interface** (`Athlete_UI`)
-    * Focused on rehab "to-do" lists, exercise videos, and personal recovery status.
-3.  **Coach Interface** (`Coach_UI`)
-    * Limited "Red/Yellow/Green" clearance status to maintain privacy compliance.
-4.  **Inventory Management** (`Inventory_Scanner`)
-    * QR code scanning for consumable supplies (tape, meds) and tracking for loaned equipment.
+1. **Trainer Interface** — Full access to medical records, SOAP notes, roster, rehab programs, and inventory.
+2. **Athlete Interface** — Focused on assigned rehab exercises and personal recovery status.
+3. **Coach Interface** — Read-only Red/Yellow/Green clearance dashboard with no access to medical details.
 
 ---
 
-##  Database Structure Summary
-
-The system utilizes a relational schema optimized for speed and medical compliance.
+## Database Schema (Overview)
 
 ```sql
--- Conceptual Schema Overview
-USERS (UserID [PK], Name, Role)
-ATHLETES (AthleteID [PK], TeamID, MedicalHistory, ClearanceStatus)
-ENCOUNTERS (NoteID [PK], AthleteID [FK], TrainerID [FK], S/O/A/P_Fields)
-REHAB_PROGRAMS (ProgramID [PK], AthleteID [FK], ExerciseDetails, CompletionStatus)
-INVENTORY (ItemID [PK], ItemName, Quantity, Threshold)
+USERS        (id, email, password_hash, role, name)
+ATHLETES     (id, user_id, name, team, clearance_status, trainer_id)
+ENCOUNTERS   (id, athlete_id, trainer_id, subjective, objective, assessment, plan)
+REHAB_PROGRAMS (id, athlete_id, trainer_id, name, exercises)
+INVENTORY    (id, name, quantity, low_stock_threshold, category)
+```
 
- User Stories
-User Story 1: The Trainer
-As a Trainer, I want to record SOAP notes via voice on the sideline, so that I can focus on athlete care without manual typing.
+---
 
-Status: In Progress
+## Team Contributions
 
-User Story 2: The Athlete
-As an Athlete, I want a gamified home exercise program, so that I can track my recovery progress and return to play faster.
+| Team Member | Total Story Points Completed | Contribution % |
+| :--- | :--- | :--- |
+| Kamron Loera | [TOTAL] | 100.0% |
+| **Team Total** | **[TOTAL]** | **100.0%** |
 
-Status: Pending
-
-User Story 3: The Coach
-As a Coach, I want a simplified clearance dashboard, so that I can see who is healthy to practice without accessing private medical details.
-
-Status: Pending
-
- Future Improvements
-Predictive Analytics: Using machine learning to predict injury risks based on training load.
-
-Apple Health/Google Fit Integration: Syncing biometric data for a 360-degree view of athlete health.
-
-Direct Telehealth: Secure video conferencing for remote injury consultations.
+> Story point totals are sourced from the Done column of the [GitHub Project board](https://github.com/users/SeaDog410/projects/1). Replace `[TOTAL]` with the final count before submission.
