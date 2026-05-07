@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Nest — Performance System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-background": "#1c1b1b",
+          "primary-fixed-dim": "#ffb4a8",
+          "surface-variant": "#e5e2e1",
+          "on-primary-fixed": "#410000",
+          "on-secondary-fixed": "#1b1b1b",
+          "surface-container-highest": "#e5e2e1",
+          "surface-container-low": "#f6f3f2",
+          "surface-tint": "#c00000",
+          "surface-container-high": "#eae7e7",
+          "surface-container-lowest": "#ffffff",
+          "on-tertiary-fixed-variant": "#454747",
+          "error": "#ba1a1a",
+          "surface-bright": "#fcf9f8",
+          "on-error": "#ffffff",
+          "on-secondary-container": "#646464",
+          "tertiary-fixed": "#e2e2e2",
+          "surface": "#fcf9f8",
+          "on-error-container": "#93000a",
+          "surface-dim": "#dcd9db",
+          "on-secondary-fixed-variant": "#474747",
+          "primary": "#9e0000",
+          "secondary": "#1c1b1b",
+          "on-tertiary-fixed": "#1a1c1c",
+          "error-container": "#ffdad6",
+          "tertiary-fixed-dim": "#c6c6c7",
+          "primary-fixed": "#ffdad4",
+          "on-surface-variant": "#5e3f3a",
+          "on-primary-fixed-variant": "#930000",
+          "inverse-primary": "#ffb4a8",
+          "on-primary": "#ffffff",
+          "secondary-fixed": "#e2e2e2",
+          "on-tertiary": "#ffffff",
+          "on-tertiary-container": "#e2e3e3",
+          "surface-container": "#f0eded",
+          "primary-container": "#9e0000",
+          "on-surface": "#1c1b1b",
+          "inverse-on-surface": "#f3f0ef",
+          "tertiary-container": "#636565",
+          "on-primary-container": "#ffdad4",
+          "inverse-surface": "#313030",
+          "outline-variant": "#e5e2e1",
+          "outline": "#926e69",
+          "on-secondary": "#ffffff",
+          "secondary-fixed-dim": "#c6c6c6",
+          "tertiary": "#4b4d4d",
+          "background": "#fcf9f8"
+        },
+        fontFamily: {
+          "body-md": ["Lexend"],
+          "headline-md": ["Lexend"],
+          "display-lg": ["Lexend"],
+          "data-mono": ["Inter"],
+          "label-caps": ["Lexend"],
+          "headline-lg": ["Lexend"],
+          "stats-number": ["Lexend"],
+          "display-xl": ["Lexend"],
+          "body-lg": ["Lexend"],
+          "label-bold": ["Lexend"]
+        },
+        fontSize: {
+          "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+          "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+          "data-mono": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+          "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+          "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "stats-number": ["40px", {"lineHeight": "1.0", "fontWeight": "800"}],
+          "display-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+          "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "label-bold": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}]
+        },
+        spacing: {
+          "margin": "2rem",
+          "container-max": "1280px",
+          "gutter": "24px",
+          "unit": "4px",
+          "xl": "64px",
+          "xs": "8px",
+          "sm": "16px",
+          "lg": "48px",
+          "base": "4px",
+          "md": "24px"
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .voice-pulse { animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(158, 0, 0, 0.4); }
+    70%  { box-shadow: 0 0 0 10px rgba(158, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(158, 0, 0, 0); }
+  }
+</style>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+
+<!-- ── App shell (hidden until logged in) ── -->
+<div id="app" class="hidden">
+
+  <!-- Top bar -->
+  <header class="fixed top-0 right-0 left-0 h-16 flex justify-between items-center px-6 z-50 bg-white border-b border-surface-variant font-lexend antialiased">
+    <div class="flex items-center gap-4">
+      <span class="text-2xl font-black tracking-tighter text-primary">THE NEST</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <span id="header-user" class="text-sm font-bold text-on-surface-variant"></span>
+      <button onclick="logout()" class="flex items-center gap-1.5 px-3 py-1.5 text-sm font-bold text-on-surface-variant hover:text-primary hover:bg-surface-container rounded transition-colors">
+        <span class="material-symbols-outlined text-base">logout</span> Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="fixed left-0 top-0 h-full w-64 flex flex-col py-6 px-4 z-40 bg-white border-r border-surface-variant font-lexend">
+    <div class="mt-16 mb-8 px-2">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-primary flex items-center justify-center text-white">
+          <span class="material-symbols-outlined">health_metrics</span>
+        </div>
+        <div>
+          <h2 class="text-lg font-black text-on-surface uppercase tracking-tight leading-none">The Nest</h2>
+          <p class="text-[10px] text-primary font-bold uppercase tracking-widest mt-1">Performance System</p>
+        </div>
+      </div>
+    </div>
+    <!-- Nav items injected by renderNav() -->
+    <nav class="flex-1 flex flex-col gap-1"></nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="ml-64 mt-16 p-8 min-h-screen">
+    <div class="max-w-container-max mx-auto">
+      <div id="dynamic-content"></div>
+    </div>
+  </main>
+
+</div><!-- /#app -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
