@@ -5,6 +5,9 @@ __pycache__/
 
 # Environments
 .env
+.env.local
+.env.*.local
+.env.production
 .venv
 env/
 venv/
@@ -12,6 +15,7 @@ venv/
 # Database
 *.sqlite
 *.db
+*.db.backup
 *.sql
 
 # Node / React Native
@@ -19,10 +23,20 @@ node_modules/
 .expo/
 dist/
 
+# Logs
+*.log
+npm-debug.log*
+
 # IDEs and Editors
 .vscode/
 .idea/
 .DS_Store
+
+# Claude Code (local machine config)
+.claude/
+
+# Wiki (managed as a separate GitHub repo)
+Capstone_Project_2026.wiki/
 
 # Mobile specific
 ios/build/
