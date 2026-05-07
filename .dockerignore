@@ -1,0 +1,9 @@
+node_modules
+nest.db
+.claude
+.agents
+ralph
+Docs
+*.log
+.env
+.env.*
