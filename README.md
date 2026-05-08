@@ -89,7 +89,7 @@ INVENTORY    (id, name, quantity, low_stock_threshold, category)
 
 | Team Member | Total Story Points Completed | Contribution % |
 | :--- | :--- | :--- |
-| Kamron Loera | [TOTAL] | 100.0% |
-| **Team Total** | **[TOTAL]** | **100.0%** |
+| Kamron Loera | 68 | 100.0% |
+| **Team Total** | **68** | **100.0%** |
 
 > Story point totals are sourced from the Done column of the [GitHub Project board](https://github.com/users/SeaDog410/projects/1). Replace `[TOTAL]` with the final count before submission.
